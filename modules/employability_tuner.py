@@ -23,8 +23,8 @@ tuner = kt.Hyperband(create_model,
                      objective='val_accuracy',
                      max_epochs=10,
                      factor=3,
-                     directory='my_dir',
-                     project_name='intro_to_kt')
+                     directory=fn_args.working_dir,
+                     project_name='kt_hyperband')
 
 # Display search space summary
 tuner.search_space_summary()
