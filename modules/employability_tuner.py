@@ -5,7 +5,7 @@ def create_model(hp):
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
 
     # Tune the number of units in the first Dense layer
-    hp_units = hp.Int('units', min_value=32, max_value=512, step=32)
+    hp_units = hp.Int('units', min_value=32, max_value=64, step=16)
     model.add(tf.keras.layers.Dense(units=hp_units, activation='relu'))
     model.add(tf.keras.layers.Dense(10))
 

@@ -12,7 +12,7 @@ PIPELINE_NAME = "sigit_wijk-pipeline"
 DATA_ROOT = "data"
 TRANSFORM_MODULE_FILE = "modules/employability_transform.py"
 TRAINER_MODULE_FILE = "modules/employability_trainer.py"
-TUNER_MODULE_FILE = "modules/employability_tuner.py"
+# TUNER_MODULE_FILE = "modules/employability_tuner.py"
 # requirement_file = os.path.join(root, "requirements.txt")
 
 # pipeline outputs
@@ -58,18 +58,6 @@ if __name__ == "__main__":
         eval_steps=1000,
         serving_model_dir=serving_model_dir,
     )
-    
-# Create a Tuner component
-    tuner = Tuner(
-        module_file=TUNER_MODULE_FILE,  # Specify the path to your tuner module
-        examples=components.example_gen.outputs['examples'],
-        transform_graph=components.transform.outputs['transform_graph'],
-        train_args=trainer_pb2.TrainArgs(num_steps=5000),
-        eval_args=trainer_pb2.EvalArgs(num_steps=1000)
-    )
-
-    # Add the Tuner component to the pipeline
-    components.append(tuner)
     
     pipeline = init_local_pipeline(components, pipeline_root)
     BeamDagRunner().run(pipeline=pipeline)
